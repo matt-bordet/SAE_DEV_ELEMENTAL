@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Renderers;
 
 namespace Elemental
 {
@@ -12,6 +14,8 @@ namespace Elemental
         private SpriteBatch _spriteBatch;
         private readonly ScreenManager _screenManager;
         public SpriteBatch SpriteBatch { get => this._spriteBatch; set => this._spriteBatch = value; }
+        private TiledMap _tiledMap;
+        private TiledMapRenderer _tiledMapRenderer;
 
 
         public Game1()
@@ -33,6 +37,8 @@ namespace Elemental
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _tiledMap = Content.Load<TiledMap>("mapGenerale");
+            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
 
             // TODO: use this.Content to load your game content here
         }
@@ -75,6 +81,7 @@ namespace Elemental
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Blue);
+            _tiledMapRenderer.Draw();
 
             // TODO: Add your drawing code here
 

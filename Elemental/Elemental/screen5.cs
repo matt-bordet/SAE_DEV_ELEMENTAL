@@ -14,7 +14,6 @@ namespace Elemental
     internal class screen5 : GameScreen
     {
         private new Game1 Game => (Game1)base.Game;
-        private Vector2 _position = new Vector2(50, 50);
         public screen5(Game1 game) : base(game) { }
         public override void Initialize()
         {

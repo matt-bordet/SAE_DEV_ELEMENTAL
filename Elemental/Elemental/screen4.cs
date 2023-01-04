@@ -30,8 +30,7 @@ namespace Elemental
         }
         public override void Draw(GameTime gameTime)
         {
-            Game.GraphicsDevice.Clear(new Color(255, 139
-                , 204));
+            Game.GraphicsDevice.Clear(new Color(255, 139, 204));
         }
     }
 }

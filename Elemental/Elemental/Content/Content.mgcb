@@ -66,3 +66,13 @@
 /processorParam:TextureFormat=Color
 /build:Player_MZ_Walk.png
 
+#begin salle boss.tmx
+/importer:
+/processor:
+/build:salle boss.tmx
+
+#begin salle2.tmx
+/importer:
+/processor:
+/build:salle2.tmx
+

@@ -5,8 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Screens;
-using MonoGame.Extended.Screens.Transitions;
+using MonoGame.Extended.Tiled.Renderers;
 using System.Threading.Tasks;
 
 namespace Elemental
@@ -29,6 +30,7 @@ namespace Elemental
         }
         public override void Draw(GameTime gameTime)
         {
+
             Game.GraphicsDevice.Clear(new Color(27, 78, 204));
         }
     }

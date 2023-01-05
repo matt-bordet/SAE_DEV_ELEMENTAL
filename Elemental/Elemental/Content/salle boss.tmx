@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="left-up" width="38" height="21" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" source="../texture_map/inca_front.tsx"/>
- <tileset firstgid="141" source="../texture_map/inca_back2.tsx"/>
+ <tileset firstgid="1" source="inca_front.tsx"/>
+ <tileset firstgid="141" source="inca_back2.tsx"/>
  <layer id="1" name="Calque de Tuiles 1" width="38" height="21" visible="0">
   <data encoding="csv">
 77,49,50,80,43,44,79,49,50,78,43,44,79,45,46,1610612778,0,0,0,0,0,0,1610612778,45,46,79,43,44,78,49,50,79,43,44,80,49,50,77,

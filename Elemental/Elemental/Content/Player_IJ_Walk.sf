@@ -1,0 +1,14 @@
+{
+  "textureAtlas": {
+    "texture": "Player_Walk.png",
+    "regionWidth": 16,
+    "regionHeight": 16
+  },
+  "cycles": {
+    "pLayer_U_Walk": {
+      "frames": [7,6,4,0,1,8],
+      "isLooping": false,
+      "frameDuration": 0.2
+    }
+  }
+}

@@ -31,7 +31,8 @@ namespace Elemental
         private Vector2 _positionPerso;
         private AnimatedSprite _perso;
         private TiledMapTileLayer mapLayer;
-
+        private Vector2 _saut;
+        
 
         public Game1()
         {
@@ -46,6 +47,7 @@ namespace Elemental
         {
            
             _positionPerso = new Vector2(134, 130);
+            _saut = new Vector2(0, 40);
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             _graphics.PreferredBackBufferWidth = 38 * TAILLE_TUILE;
             _graphics.PreferredBackBufferHeight = 21 * TAILLE_TUILE;
@@ -96,19 +98,26 @@ namespace Elemental
                 if (!IsCollision(tx, ty))
                     _positionPerso.X -= _vitessePerso * deltaSeconds;
             }
-           
             if ((Keyboard.GetState().IsKeyDown(Keys.Space)))
             {
+                bool est_entrain_de_sauter = true;
                 _perso.Play("pLayer_U_Walk");
                 _perso.Update(deltaSeconds);
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
-                if (!IsCollision(tx, ty))
+                
+                if (!IsCollision(tx, ty) && est_entrain_de_sauter == true)
                 {
                     tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                     ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
                     if (IsCollision(tx, ty))
-                        _positionPerso.Y -= _vitessePerso * deltaSeconds + 40;
+                    {
+                        _positionPerso.Y -= _vitessePerso * deltaSeconds;
+                        _positionPerso = _positionPerso - _saut;
+                        est_entrain_de_sauter = false;
+                    }
+                        
+
                 }
                     
             }

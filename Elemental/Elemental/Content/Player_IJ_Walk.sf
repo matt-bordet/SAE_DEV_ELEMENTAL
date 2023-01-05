@@ -7,7 +7,7 @@
   "cycles": {
     "pLayer_U_Walk": {
       "frames": [7,6,4,0,1,8],
-      "isLooping": false,
+      "isLooping": true,
       "frameDuration": 0.2
     }
   }

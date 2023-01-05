@@ -23,6 +23,7 @@ namespace Elemental
         public const int LARGEUR_FENETRE = 38 * 16;
         public const int HAUTEUR_FENETRE = 21 * 16;
         private int _vitessePerso;
+        private float gravite=-2;
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
         private GraphicsDeviceManager _graphics;
@@ -44,7 +45,7 @@ namespace Elemental
         protected override void Initialize()
         {
            
-            _positionPerso = new Vector2(134, 134);
+            _positionPerso = new Vector2(134, 130);
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             _graphics.PreferredBackBufferWidth = 38 * TAILLE_TUILE;
             _graphics.PreferredBackBufferHeight = 21 * TAILLE_TUILE;
@@ -75,7 +76,7 @@ namespace Elemental
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
-
+           
             if ((Keyboard.GetState().IsKeyDown(Keys.D)))
             {
                 _perso.Play("pLayer_U_Walk");
@@ -95,16 +96,36 @@ namespace Elemental
                 if (!IsCollision(tx, ty))
                     _positionPerso.X -= _vitessePerso * deltaSeconds;
             }
+           
             if ((Keyboard.GetState().IsKeyDown(Keys.Space)))
             {
                 _perso.Play("pLayer_U_Walk");
                 _perso.Update(deltaSeconds);
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight-0.5);
-                
+                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
                 if (!IsCollision(tx, ty))
-                    _positionPerso.Y -= _vitessePerso * deltaSeconds;
+                {
+                    tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
+                    ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
+                    if (IsCollision(tx, ty))
+                        _positionPerso.Y -= _vitessePerso * deltaSeconds + 40;
+                }
+                    
             }
+            else
+            {
+                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
+                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
+                if (!IsCollision(tx, ty))
+                    _positionPerso.Y = _positionPerso.Y - gravite;
+            }
+
+
+
+
+
+
+
             if (keyboardState.IsKeyDown(Keys.F1))
             {
                 LoadScreen1();

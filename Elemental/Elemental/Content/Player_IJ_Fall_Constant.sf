@@ -1,0 +1,14 @@
+{
+  "textureAtlas": {
+    "texture": "Player_IJ_Fall_Constant.png",
+    "regionWidth": 16,
+    "regionHeight": 16
+  },
+  "cycles": {
+    "player_IJ_Fall_Constant": {
+      "frames": [0],
+      "isLooping": false,
+      "frameDuration": 0.2
+    }
+  }
+}

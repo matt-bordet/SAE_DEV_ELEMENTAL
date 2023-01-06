@@ -19,27 +19,34 @@ namespace Elemental
 {
     internal class screen2 : GameScreen
     {
-       
+        private TiledMap _tiledMap;
+        private TiledMapRenderer _tiledMapRenderer;
+        private TiledMapTileLayer mapLayer;
+        private perso _perso = new perso();
         private new Game1 Game => (Game1)base.Game;
         public screen2(Game1 game) : base(game) { }
         public override void Initialize()
         {
-            
+            _perso.Initialize();
             base.Initialize();
         }
         public override void LoadContent()
         {
-            
+            _tiledMap = Content.Load<TiledMap>("salle_boss");
+            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
+            _perso.LoadContent(Game);
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
         {
-            
+            _tiledMapRenderer.Update(gameTime);
+            _perso.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
-
-            Game.GraphicsDevice.Clear(new Color(27, 78, 204));
+            _tiledMapRenderer.Draw();
+            _perso.Draw(Game._spriteBatch);     
         }
     }
 }

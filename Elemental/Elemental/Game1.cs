@@ -54,7 +54,9 @@ namespace Elemental
         protected override void LoadContent()
         {          
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-           
+            _tiledMap = Content.Load<TiledMap>("salle2");
+            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
         }
 
         protected override void Update(GameTime gameTime)

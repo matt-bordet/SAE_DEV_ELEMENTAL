@@ -15,15 +15,13 @@ using MonoGame.Extended.Content;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.Serialization;
 
-
 namespace Elemental
 {
     internal class screen1 : GameScreen
     {
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        private TiledMapTileLayer mapLayer;
-       
+        private TiledMapTileLayer mapLayer;      
         private perso _perso = new perso();
         private new Game1 Game => (Game1)base.Game;
         public screen1(Game1 game) : base(game) { }
@@ -43,7 +41,7 @@ namespace Elemental
         public override void Update(GameTime gameTime)
         {
             _tiledMapRenderer.Update(gameTime);
-            _perso.Update(gameTime, _tiledMap);
+            _perso.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {

@@ -20,7 +20,7 @@ namespace Elemental
     {
         private int _vitessePerso;
         private float gravite = -1;
-       
+        private TiledMap _tiledMap;
         private Vector2 _positionPerso;
         private AnimatedSprite _perso;
         private Vector2 _saut;
@@ -32,10 +32,11 @@ namespace Elemental
         }
         public  void LoadContent(Game1 game)
         {
+            _tiledMap = game.Content.Load<TiledMap>("salle2");
             SpriteSheet spriteSheet = game.Content.Load<SpriteSheet>("Player_IJ_Walk.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
         }
-        public  void Update(GameTime gameTime,TiledMap _tiledMap)
+        public  void Update(GameTime gameTime)
         {
             
             KeyboardState keyboardState = Keyboard.GetState();

@@ -140,10 +140,10 @@
 /processorParam:TextureFormat=Color
 /build:Player_Walk.png
 
-#begin salle boss.tmx
+#begin salle_boss.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:salle boss.tmx
+/build:salle_boss.tmx
 
 #begin salle2.tmx
 /importer:TiledMapImporter

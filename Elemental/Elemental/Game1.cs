@@ -14,24 +14,18 @@ using System;
 namespace Elemental
 {
     public class Game1 : Game
-    {
-        
+    {       
         private readonly ScreenManager _screenManager;
-       
-
         public const int TAILLE_TUILE = 16;
         public const int LARGEUR_FENETRE = 38 * 16;
         public const int HAUTEUR_FENETRE = 21 * 16;
-        private int _vitessePerso;
-        private float gravite=-1;
+        private GraphicsDeviceManager _graphics;
+        public SpriteBatch _spriteBatch;
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-        private Vector2 _positionPerso;
-        private AnimatedSprite _perso;
         private TiledMapTileLayer mapLayer;
-        private Vector2 _saut;
+       
+        
         
 
         public Game1()
@@ -45,29 +39,22 @@ namespace Elemental
 
         protected override void Initialize()
         {
-           
-            _positionPerso = new Vector2(134, 130);
-            _saut = new Vector2(0, 40);
+            LoadScreen1();
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             _graphics.PreferredBackBufferWidth = 38 * TAILLE_TUILE;
             _graphics.PreferredBackBufferHeight = 21 * TAILLE_TUILE;
             _graphics.ApplyChanges();
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            _vitessePerso = 142;
+           
             base.Initialize();
         }
+            
+        
 
         protected override void LoadContent()
-        {
-            
+        {          
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _tiledMap = Content.Load<TiledMap>("salle2");
-            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
-            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("Player_IJ_Walk.sf", new JsonContentLoader());
-            _perso = new AnimatedSprite(spriteSheet);
-            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
-
-            // TODO: use this.Content to load your game content here
+           
         }
 
         protected override void Update(GameTime gameTime)
@@ -79,101 +66,38 @@ namespace Elemental
             if (keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
            
-            if ((Keyboard.GetState().IsKeyDown(Keys.D)))
-            {
-                _perso.Play("pLayer_U_Walk");
-                _perso.Update(deltaSeconds);
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth+0.5);
-                ushort ty = (ushort)(_positionPerso.Y /_tiledMap.TileHeight);
-                if (!IsCollision(tx, ty))
-                    _positionPerso.X += _vitessePerso * deltaSeconds;
-            }
-
-            if ((Keyboard.GetState().IsKeyDown(Keys.Q)))
-            {
-                _perso.Play("pLayer_U_Walk");
-                _perso.Update(deltaSeconds);
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth-0.5);
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
-                if (!IsCollision(tx, ty))
-                    _positionPerso.X -= _vitessePerso * deltaSeconds;
-            }
-            if ((Keyboard.GetState().IsKeyDown(Keys.Space)))
-            {
-                bool est_entrain_de_sauter = true;
-                _perso.Play("pLayer_U_Walk");
-                _perso.Update(deltaSeconds);
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
-                
-                if (!IsCollision(tx, ty) && est_entrain_de_sauter == true)
-                {
-                    tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
-                    ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
-                    _positionPerso.Y = _positionPerso.Y - gravite;
-                    if (IsCollision(tx, ty))
-                    {
-                        _positionPerso.Y -= _vitessePerso * deltaSeconds;
-                        _positionPerso = _positionPerso - _saut;
-                        est_entrain_de_sauter = false;
-                    }
-                        
-
-                }
-                    
-            }
-            else
-            {
-                ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
-                ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
-                if (!IsCollision(tx, ty))
-                    _positionPerso.Y = _positionPerso.Y - gravite;
-            }
-
-
-
-
-
-
-
-            if (keyboardState.IsKeyDown(Keys.F1))
-            {
-                LoadScreen1();
-            }
-            else if (keyboardState.IsKeyDown(Keys.F2))
+            ushort x=0;
+            ushort y=0;
+            
+            if (keyboardState.IsKeyDown(Keys.E) && mapLayer.GetTile(x,y).GlobalIdentifier==357)
             {
                 LoadScreen2();
+                
             }
-            else if (keyboardState.IsKeyDown(Keys.F3))
+             if (keyboardState.IsKeyDown(Keys.F3))
             {
                 LoadScreen3();
             }
-            else if (keyboardState.IsKeyDown(Keys.F4))
+             if (keyboardState.IsKeyDown(Keys.F4))
             {
                 LoadScreen4();
             }
-            else if (keyboardState.IsKeyDown(Keys.F5))
+             if (keyboardState.IsKeyDown(Keys.F5))
             {
                 LoadScreen5();
             }
-            else if (keyboardState.IsKeyDown(Keys.F6))
+             if (keyboardState.IsKeyDown(Keys.F6))
             {
                 LoadScreen6();
             }
-            _tiledMapRenderer.Update(gameTime);
+            
             base.Update(gameTime);
-            // TODO: Add your update logic here
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Blue);
-            _tiledMapRenderer.Draw();
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(_perso, _positionPerso);
-            _spriteBatch.End();
-            // TODO: Add your drawing code here
-
+            GraphicsDevice.Clear(Color.Blue);          
+           
             base.Draw(gameTime);
         }
         
@@ -200,22 +124,6 @@ namespace Elemental
         private void LoadScreen6()
         {
             _screenManager.LoadScreen(new screen6(this), new FadeTransition(GraphicsDevice, Color.Black));
-        }
-        private bool IsCollision(ushort x, ushort y)
-        {
-            Console.WriteLine(mapLayer.GetTile(x, y).GlobalIdentifier);
-            // définition de tile qui peut être null (?)
-            TiledMapTile? tile;
-            if (mapLayer.TryGetTile(x, y, out tile) == false)
-                return false;
-
-            if (!tile.Value.IsBlank)
-            {
-                return true;
-            }
-
-            return false;
-
-        }
+        }         
     }
 }

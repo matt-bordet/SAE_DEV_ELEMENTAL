@@ -23,7 +23,7 @@ namespace Elemental
         public const int LARGEUR_FENETRE = 38 * 16;
         public const int HAUTEUR_FENETRE = 21 * 16;
         private int _vitessePerso;
-        private float gravite=-2;
+        private float gravite=-1;
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
         private GraphicsDeviceManager _graphics;
@@ -110,6 +110,7 @@ namespace Elemental
                 {
                     tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                     ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
+                    _positionPerso.Y = _positionPerso.Y - gravite;
                     if (IsCollision(tx, ty))
                     {
                         _positionPerso.Y -= _vitessePerso * deltaSeconds;

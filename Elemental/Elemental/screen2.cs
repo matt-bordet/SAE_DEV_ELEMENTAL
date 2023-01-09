@@ -34,14 +34,14 @@ namespace Elemental
         {
             _tiledMap = Content.Load<TiledMap>("salle_boss");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
-            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obs2");
             _perso.LoadContent(Game);
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
         {
             _tiledMapRenderer.Update(gameTime);
-            _perso.Update(gameTime);
+            _perso.Update(gameTime, "obs2", _tiledMap);
         }
         public override void Draw(GameTime gameTime)
         {

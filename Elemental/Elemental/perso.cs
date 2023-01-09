@@ -32,11 +32,10 @@ namespace Elemental
         }
         public  void LoadContent(Game1 game)
         {
-            _tiledMap = game.Content.Load<TiledMap>("salle2");
             SpriteSheet spriteSheet = game.Content.Load<SpriteSheet>("Player_IJ_Walk.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
         }
-        public  void Update(GameTime gameTime)
+        public  void Update(GameTime gameTime, string obstacleLayerName, TiledMap _tiledMap)
         {
             
             KeyboardState keyboardState = Keyboard.GetState();
@@ -50,7 +49,7 @@ namespace Elemental
                 _perso.Update(deltaSeconds);
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth + 0.5);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>("obstacles")))
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
                     _positionPerso.X += _vitessePerso * deltaSeconds;
             }
 
@@ -60,9 +59,10 @@ namespace Elemental
                 _perso.Update(deltaSeconds);
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth - 0.5);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>("obstacles")))
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
                     _positionPerso.X -= _vitessePerso * deltaSeconds;
             }
+
             if ((Keyboard.GetState().IsKeyDown(Keys.Space)))
             {
                 bool est_entrain_de_sauter = true;
@@ -71,18 +71,17 @@ namespace Elemental
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
 
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>("obstacles")) && est_entrain_de_sauter == true)
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)) && est_entrain_de_sauter == true)
                 {
                     tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                     ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
                     _positionPerso.Y = _positionPerso.Y - gravite;
-                    if (IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>("obstacles")))
+                    if (IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
                     {
 
                         _positionPerso.Y -= _vitessePerso * deltaSeconds;
                         _positionPerso = _positionPerso - _saut;
                         est_entrain_de_sauter = false;
-
                     }
                 }
             }
@@ -90,7 +89,7 @@ namespace Elemental
             {
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>("obstacles")))
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
                     _positionPerso.Y = _positionPerso.Y - gravite;
             }
                

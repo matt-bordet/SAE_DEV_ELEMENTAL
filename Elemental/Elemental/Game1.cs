@@ -21,9 +21,7 @@ namespace Elemental
         public const int HAUTEUR_FENETRE = 21 * 16;
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch;
-        private TiledMap _tiledMap;
-        private TiledMapRenderer _tiledMapRenderer;
-        private TiledMapTileLayer mapLayer;
+        public TiledMapTileLayer mapLayer;
        
         
         
@@ -39,24 +37,23 @@ namespace Elemental
 
         protected override void Initialize()
         {
-            LoadScreen1();
+            
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             _graphics.PreferredBackBufferWidth = 38 * TAILLE_TUILE;
             _graphics.PreferredBackBufferHeight = 21 * TAILLE_TUILE;
             _graphics.ApplyChanges();
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
-           
+           LoadScreen1();
             base.Initialize();
         }
             
         
 
         protected override void LoadContent()
-        {          
+        {
+            LoadScreen1();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _tiledMap = Content.Load<TiledMap>("salle2");
-            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
-            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
+            base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,14 +65,9 @@ namespace Elemental
             if (keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
            
-            ushort x=0;
-            ushort y=0;
             
-            if (keyboardState.IsKeyDown(Keys.E) && mapLayer.GetTile(x,y).GlobalIdentifier==357)
-            {
-                LoadScreen2();
-                
-            }
+            
+            
              if (keyboardState.IsKeyDown(Keys.F3))
             {
                 LoadScreen3();
@@ -107,7 +99,7 @@ namespace Elemental
         {
             _screenManager.LoadScreen(new screen1(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
-        private void LoadScreen2()
+        public void LoadScreen2()
         {
             _screenManager.LoadScreen(new screen2(this), new FadeTransition(GraphicsDevice, Color.Black));
         }

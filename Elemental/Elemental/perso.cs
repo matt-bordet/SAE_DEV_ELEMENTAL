@@ -116,6 +116,8 @@ namespace Elemental
                     Console.WriteLine("PORTE");
                 if (mapLayer.GetTile(x, y).GlobalIdentifier == 217)
                     Console.WriteLine("PORTE");
+                if (mapLayer.GetTile(x, y).GlobalIdentifier == 71)
+                    Console.WriteLine("PORTE");
                 return true;
             }
 

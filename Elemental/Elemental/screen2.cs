@@ -32,16 +32,23 @@ namespace Elemental
         }
         public override void LoadContent()
         {
-            _tiledMap = Content.Load<TiledMap>("salle_boss");
+            _tiledMap = Content.Load<TiledMap>("salle2");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
-            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obs2");
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obstacles");
             _perso.LoadContent(Game);
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
         {
             _tiledMapRenderer.Update(gameTime);
-            _perso.Update(gameTime, "obs2", _tiledMap);
+            _perso.Update(gameTime, "obstacles", _tiledMap);
+            ushort x = 0;
+            ushort y = 0;
+            if (Keyboard.GetState().IsKeyDown(Keys.E) && mapLayer.GetTile(x, y).GlobalIdentifier == 357)
+            {
+                Game.LoadScreen3();
+
+            }
         }
         public override void Draw(GameTime gameTime)
         {

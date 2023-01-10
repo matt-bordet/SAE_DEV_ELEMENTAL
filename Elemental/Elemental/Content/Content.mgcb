@@ -145,8 +145,18 @@
 /processor:TiledMapProcessor
 /build:salle_boss.tmx
 
+#begin salle1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:salle1.tmx
+
 #begin salle2.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:salle2.tmx
+
+#begin salle4.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:salle4.tmx
 

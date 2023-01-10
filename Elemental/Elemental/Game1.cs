@@ -103,19 +103,19 @@ namespace Elemental
         {
             _screenManager.LoadScreen(new screen2(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
-        private void LoadScreen3()
+        public void LoadScreen3()
         {
             _screenManager.LoadScreen(new screen3(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
-        private void LoadScreen4()
+        public void LoadScreen4()
         {
             _screenManager.LoadScreen(new screen4(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
-        private void LoadScreen5()
+        public void LoadScreen5()
         {
             _screenManager.LoadScreen(new screen5(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
-        private void LoadScreen6()
+        public void LoadScreen6()
         {
             _screenManager.LoadScreen(new screen6(this), new FadeTransition(GraphicsDevice, Color.Black));
         }         

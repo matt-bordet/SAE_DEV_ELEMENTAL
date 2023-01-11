@@ -41,9 +41,10 @@ namespace Elemental
         public override void Update(GameTime gameTime)
         {
             _tiledMapRenderer.Update(gameTime);
-            _perso.Update(gameTime, "obstacles", _tiledMap);
-            ushort x = 0;
-            ushort y = 0;
+            _perso.Update(gameTime, "obstacles", _tiledMap, Game);
+            ushort x = (ushort)(_perso._positionPerso.X / _tiledMap.Width);
+            ushort y = (ushort)(_perso._positionPerso.Y / _tiledMap.Height);
+            Console.WriteLine(x + ", " + y);
             if (Keyboard.GetState().IsKeyDown(Keys.E) && mapLayer.GetTile(x, y).GlobalIdentifier == 357)
             {
                 Game.LoadScreen3();

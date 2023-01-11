@@ -21,7 +21,8 @@ namespace Elemental
     {
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        private TiledMapTileLayer mapLayer;      
+        private TiledMapTileLayer mapLayer;
+        private Vector2 _positionPerso;
         private perso _perso = new perso();
         private new Game1 Game => (Game1)base.Game;
         public screen1(Game1 game) : base(game) { }
@@ -42,14 +43,12 @@ namespace Elemental
         public override void Update(GameTime gameTime)
         {
             _tiledMapRenderer.Update(gameTime);
-            _perso.Update(gameTime, "obs3", _tiledMap);
-            ushort x = 0;
-            ushort y = 0;
-            if (Keyboard.GetState().IsKeyDown(Keys.E) && mapLayer.GetTile(x, y).GlobalIdentifier == 217)
-            {
-                Game.LoadScreen2();
-
-            }
+            _perso.Update(gameTime, "obs3", _tiledMap, Game);
+            ushort x = (ushort)(_perso._positionPerso.X / _tiledMap.Width);
+            ushort y = (ushort)(_perso._positionPerso.Y / _tiledMap.Height);
+            Console.WriteLine(x + ", " + y);
+            
+            
         }
         public override void Draw(GameTime gameTime)
         {

@@ -21,7 +21,7 @@ namespace Elemental
         private int _vitessePerso;
         private float gravite = -1;
         private TiledMap _tiledMap;
-        private Vector2 _positionPerso;
+        public Vector2 _positionPerso;
         private AnimatedSprite _perso;
         private Vector2 _saut;
         public void Initialize()
@@ -35,7 +35,7 @@ namespace Elemental
             SpriteSheet spriteSheet = game.Content.Load<SpriteSheet>("Player_IJ_Walk.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
         }
-        public  void Update(GameTime gameTime, string obstacleLayerName, TiledMap _tiledMap)
+        public  void Update(GameTime gameTime, string obstacleLayerName, TiledMap _tiledMap, Game1 game)
         {
             
             KeyboardState keyboardState = Keyboard.GetState();
@@ -49,7 +49,7 @@ namespace Elemental
                 _perso.Update(deltaSeconds);
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth + 0.5);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName), game))
                     _positionPerso.X += _vitessePerso * deltaSeconds;
             }
 
@@ -59,7 +59,7 @@ namespace Elemental
                 _perso.Update(deltaSeconds);
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth - 0.5);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName), game))
                     _positionPerso.X -= _vitessePerso * deltaSeconds;
             }
 
@@ -71,12 +71,12 @@ namespace Elemental
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight);
 
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)) && est_entrain_de_sauter == true)
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName), game) && est_entrain_de_sauter == true)
                 {
                     tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                     ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
                     _positionPerso.Y = _positionPerso.Y - gravite;
-                    if (IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
+                    if (IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName) ,game))
                     {
 
                         _positionPerso.Y -= _vitessePerso * deltaSeconds;
@@ -89,7 +89,7 @@ namespace Elemental
             {
                 ushort tx = (ushort)(_positionPerso.X / _tiledMap.TileWidth);
                 ushort ty = (ushort)(_positionPerso.Y / _tiledMap.TileHeight + 0.5);
-                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName)))
+                if (!IsCollision(tx, ty, _tiledMap.GetLayer<TiledMapTileLayer>(obstacleLayerName), game))
                     _positionPerso.Y = _positionPerso.Y - gravite;
             }
                
@@ -102,9 +102,9 @@ namespace Elemental
             _spriteBatch.End();
 
         }
-        private bool IsCollision(ushort x, ushort y, TiledMapTileLayer mapLayer)
+        private bool IsCollision(ushort x, ushort y, TiledMapTileLayer mapLayer, Game1 game)
         {
-            Console.WriteLine(mapLayer.GetTile(x, y).GlobalIdentifier);
+            //Console.WriteLine(mapLayer.GetTile(x, y).GlobalIdentifier);
            
             TiledMapTile? tile;
             if (mapLayer.TryGetTile(x, y, out tile) == false)
@@ -113,11 +113,22 @@ namespace Elemental
             if (!tile.Value.IsBlank)
             {
                 if (mapLayer.GetTile(x, y).GlobalIdentifier == 357)
-                    Console.WriteLine("PORTE");
+                {
+                    Console.WriteLine("PORTE 2");
+                    game.LoadScreen3();
+                }
+                    
                 if (mapLayer.GetTile(x, y).GlobalIdentifier == 217)
-                    Console.WriteLine("PORTE");
+                {
+                    Console.WriteLine("PORTE 1");
+                    game.LoadScreen2();
+                }
                 if (mapLayer.GetTile(x, y).GlobalIdentifier == 71)
-                    Console.WriteLine("PORTE");
+                {
+                    Console.WriteLine("PORTE 3");
+                    game.LoadScreen4();
+                }
+                   
                 return true;
             }
 

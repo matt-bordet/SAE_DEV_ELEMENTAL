@@ -42,7 +42,7 @@ namespace Elemental
         public override void Update(GameTime gameTime)
         {
             _tiledMapRenderer.Update(gameTime);
-            _perso.Update(gameTime, "obs4", _tiledMap);
+            _perso.Update(gameTime, "obs4", _tiledMap, Game);
         }
         public override void Draw(GameTime gameTime)
         {

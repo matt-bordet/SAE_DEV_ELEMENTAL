@@ -111,29 +111,28 @@ namespace Elemental
                 return false;
 
             if (!tile.Value.IsBlank)
-            {
-                if (mapLayer.GetTile(x, y).GlobalIdentifier == 357)
-                {
-                    Console.WriteLine("PORTE 2");
-                    game.LoadScreen3();
-                }
-                    
+            {  
                 if (mapLayer.GetTile(x, y).GlobalIdentifier == 217)
                 {
                     Console.WriteLine("PORTE 1");
                     game.LoadScreen2();
                 }
+
+                if (mapLayer.GetTile(x, y).GlobalIdentifier == 357)
+                {
+                    Console.WriteLine("PORTE 2");
+                    game.LoadScreen3();
+                }
+
                 if (mapLayer.GetTile(x, y).GlobalIdentifier == 71)
                 {
                     Console.WriteLine("PORTE 3");
                     game.LoadScreen4();
                 }
+                
                    
-                return true;
             }
-
             return false;
-
         }
     }
 }

@@ -22,12 +22,15 @@ namespace Elemental
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
         private TiledMapTileLayer mapLayer;
+       
+        public Vector2 _positionPerso;
         private perso _perso = new perso();
         private new Game1 Game => (Game1)base.Game;
         
         public screen4(Game1 game) : base(game) { }
         public override void Initialize()
         {
+            
             _perso.Initialize();
             base.Initialize();
         }
@@ -43,10 +46,13 @@ namespace Elemental
         {
             _tiledMapRenderer.Update(gameTime);
             _perso.Update(gameTime, "obs4", _tiledMap, Game);
+            chrono.Update(gameTime);
+            
         }
         public override void Draw(GameTime gameTime)
         {
             _tiledMapRenderer.Draw();
+             chrono.Draw(Game._spriteBatch);
             _perso.Draw(Game._spriteBatch);
         }
     }

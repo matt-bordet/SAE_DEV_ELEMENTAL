@@ -22,10 +22,8 @@ namespace Elemental
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch;
         public TiledMapTileLayer mapLayer;
-       
-        
-        
 
+        
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -43,7 +41,8 @@ namespace Elemental
             _graphics.PreferredBackBufferHeight = 21 * TAILLE_TUILE;
             _graphics.ApplyChanges();
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
-           LoadScreen1();
+            chrono.font = Content.Load<SpriteFont>("font");
+            LoadScreen1();
             base.Initialize();
         }
             
@@ -52,6 +51,7 @@ namespace Elemental
         protected override void LoadContent()
         {
             LoadScreen1();
+           
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             base.LoadContent();
         }
@@ -90,8 +90,10 @@ namespace Elemental
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Blue);          
+            GraphicsDevice.Clear(Color.Blue);
+            _spriteBatch.Begin();
            
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
         

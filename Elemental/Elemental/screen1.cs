@@ -47,12 +47,14 @@ namespace Elemental
             ushort x = (ushort)(_perso._positionPerso.X / _tiledMap.Width);
             ushort y = (ushort)(_perso._positionPerso.Y / _tiledMap.Height);
             Console.WriteLine(x + ", " + y);
+            chrono.Update(gameTime);
             
             
         }
         public override void Draw(GameTime gameTime)
         {
             _tiledMapRenderer.Draw();
+            chrono.Draw(Game._spriteBatch);
             _perso.Draw(Game._spriteBatch);
         }
         

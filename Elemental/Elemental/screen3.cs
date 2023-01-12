@@ -34,7 +34,7 @@ namespace Elemental
         {
             _tiledMap = Content.Load<TiledMap>("salle_boss");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
-            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("bos2");
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obs2");
 
             _perso.LoadContent(Game);
             base.LoadContent();
@@ -46,16 +46,14 @@ namespace Elemental
             ushort x = (ushort)(_perso._positionPerso.X / _tiledMap.Width);
             ushort y = (ushort)(_perso._positionPerso.Y / _tiledMap.Height);
             Console.WriteLine(x + ", " + y);
-            if (Keyboard.GetState().IsKeyDown(Keys.E) && mapLayer.GetTile(x, y).GlobalIdentifier == 71)
-            {
-                Game.LoadScreen4();
 
-            }
-
+            
+            chrono.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
             _tiledMapRenderer.Draw();
+            chrono.Draw(Game._spriteBatch);
             _perso.Draw(Game._spriteBatch);
         }
     }

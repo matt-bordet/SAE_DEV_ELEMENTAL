@@ -6,32 +6,58 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended.Screens;
 using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Screens;
 using MonoGame.Extended.Tiled.Renderers;
+using MonoGame.Extended.Screens.Transitions;
+using MonoGame.Extended.Sprites;
+using MonoGame.Extended.Content;
+using MonoGame.Extended.TextureAtlases;
+using MonoGame.Extended.Serialization;
+using Microsoft.Xna.Framework.Media;
 
 namespace Elemental
 {
     internal class screen1 : GameScreen
     {
+        private TiledMap _tiledMap;
+        private TiledMapRenderer _tiledMapRenderer;
+        private TiledMapTileLayer mapLayer;
+        private Vector2 _positionPerso;
+        private perso _perso = new perso();
+        //private Song musique;
         private new Game1 Game => (Game1)base.Game;
         public screen1(Game1 game) : base(game) { }
         public override void Initialize()
         {
+            _perso.Initialize();
             base.Initialize();
         }
         public override void LoadContent()
         {
+            _tiledMap = Content.Load<TiledMap>("salle1");
+            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+            mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obs3");
+            //musique = Content.Load<Song>("Dungeon Music");
+            _perso.LoadContent(Game);
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
         {
-            
+            _tiledMapRenderer.Update(gameTime);
+            _perso.Update(gameTime, "obs3", _tiledMap, Game);
+            ushort x = (ushort)(_perso._positionPerso.X / _tiledMap.Width);
+            ushort y = (ushort)(_perso._positionPerso.Y / _tiledMap.Height);
+            Console.WriteLine(x + ", " + y);
+            chrono.Update(gameTime);
+            //MediaPlayer.Play(musique);
         }
         public override void Draw(GameTime gameTime)
         {
-            Game.GraphicsDevice.Clear(new Color(16, 139, 204));
-
+            _tiledMapRenderer.Draw();
+            chrono.Draw(Game._spriteBatch);
+            _perso.Draw(Game._spriteBatch);
         }
+        
     }
 }

@@ -14,23 +14,25 @@ using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.Serialization;
+using Microsoft.Xna.Framework.Media;
+
 namespace Elemental
 {
     internal class perso
     {
         private int _vitessePerso;
         private float gravite =-1;
-        //private float _chrono = 0;
+        
         private TiledMap _tiledMap;
         public Vector2 _positionPerso;
-        //public Vector2 _positionChrono;
+        
         private AnimatedSprite _perso;
         private Vector2 _saut;
-       //private SpriteFont font;
+       
         public void Initialize()
         {
             _positionPerso = new Vector2(50, 50);
-            //_positionChrono = new Vector2(16, 16);
+          
             _saut = new Vector2(0, 20);
             _vitessePerso = 142;
         }
@@ -38,7 +40,7 @@ namespace Elemental
         {
             SpriteSheet spriteSheet = game.Content.Load<SpriteSheet>("Player_IJ_Animations.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
-            //font = game.Content.Load<SpriteFont>("font");
+           
         }
         public  void Update(GameTime gameTime, string obstacleLayerName, TiledMap _tiledMap, Game1 game)
         {
@@ -105,7 +107,7 @@ namespace Elemental
                     _perso.Play("Player_IJ_Fall_Constant");
                 }
             }
-            //_chrono += deltaSeconds;
+           
 
 
         }
@@ -113,7 +115,7 @@ namespace Elemental
         {
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _positionPerso);
-            //_spriteBatch.DrawString(font, Math.Round(_chrono,1).ToString(), _positionChrono, Color.White) ;
+            
             _spriteBatch.End();
         }
         private bool IsCollision(ushort x, ushort y, TiledMapTileLayer mapLayer, Game1 game)
@@ -138,11 +140,19 @@ namespace Elemental
                     game.LoadScreen3();
                 }
 
-                if (mapLayer.GetTile(x, y).GlobalIdentifier == 570)
+                if (mapLayer.GetTile(x, y).GlobalIdentifier == 358)
                 {
                     Console.WriteLine("PORTE 3");
-                    game.LoadScreen4();
+                    game.LoadScreen5();
                 }
+                if (mapLayer.GetTile(x, y).GlobalIdentifier==100)
+                {
+                    Console.WriteLine("fin du jeu");
+                }
+                //if (mapLayer.GetTile(x, y).GlobalIdentifier == 421|| mapLayer.GetTile(x, y).GlobalIdentifier == 422|| mapLayer.GetTile(x, y).GlobalIdentifier == 423 || mapLayer.GetTile(x, y).GlobalIdentifier == 424)
+                //{
+                //    game.LoadScreen1();
+                //}
                 return true;
             }
             return false;

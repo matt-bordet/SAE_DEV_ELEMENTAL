@@ -14,6 +14,7 @@ using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.Serialization;
+using Microsoft.Xna.Framework.Media;
 
 namespace Elemental
 {
@@ -24,6 +25,7 @@ namespace Elemental
         private TiledMapTileLayer mapLayer;
         private Vector2 _positionPerso;
         private perso _perso = new perso();
+        //private Song musique;
         private new Game1 Game => (Game1)base.Game;
         public screen1(Game1 game) : base(game) { }
         public override void Initialize()
@@ -36,7 +38,7 @@ namespace Elemental
             _tiledMap = Content.Load<TiledMap>("salle1");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("obs3");
-
+            //musique = Content.Load<Song>("Dungeon Music");
             _perso.LoadContent(Game);
             base.LoadContent();
         }
@@ -48,8 +50,7 @@ namespace Elemental
             ushort y = (ushort)(_perso._positionPerso.Y / _tiledMap.Height);
             Console.WriteLine(x + ", " + y);
             chrono.Update(gameTime);
-            
-            
+            //MediaPlayer.Play(musique);
         }
         public override void Draw(GameTime gameTime)
         {

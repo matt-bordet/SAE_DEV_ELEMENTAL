@@ -10,6 +10,7 @@ using MonoGame.Extended.Content;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.Serialization;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace Elemental
 {
@@ -19,11 +20,14 @@ namespace Elemental
         public const int TAILLE_TUILE = 16;
         public const int LARGEUR_FENETRE = 38 * 16;
         public const int HAUTEUR_FENETRE = 21 * 16;
+        //public Song musique;
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch;
         public TiledMapTileLayer mapLayer;
 
-        
+
+
+        ///Song song;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -51,7 +55,9 @@ namespace Elemental
         protected override void LoadContent()
         {
             LoadScreen1();
-           
+            ///song = Content.Load<Song>("musique_dungeons");
+            ///MediaPlayer.Play(song);
+            ///MediaPlayer.IsRepeating = true;
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             base.LoadContent();
         }
@@ -64,27 +70,32 @@ namespace Elemental
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
-           
-            
-            
-            
-             if (keyboardState.IsKeyDown(Keys.F3))
+
+
+
+            if (keyboardState.IsKeyDown(Keys.F1))
+            {
+                LoadScreen1();
+            }
+            if (keyboardState.IsKeyDown(Keys.F2))
+            {
+                LoadScreen2();
+            }
+            if (keyboardState.IsKeyDown(Keys.F3))
             {
                 LoadScreen3();
             }
              if (keyboardState.IsKeyDown(Keys.F4))
             {
-                LoadScreen4();
-            }
-             if (keyboardState.IsKeyDown(Keys.F5))
-            {
                 LoadScreen5();
             }
-             if (keyboardState.IsKeyDown(Keys.F6))
+            if (keyboardState.IsKeyDown(Keys.F5))
             {
-                LoadScreen6();
+                LoadScreen4();
             }
-            
+
+
+
             base.Update(gameTime);
         }
 
@@ -97,29 +108,35 @@ namespace Elemental
             base.Draw(gameTime);
         }
         
-        private void LoadScreen1()
+        public void LoadScreen1()
         {
             _screenManager.LoadScreen(new screen1(this), new FadeTransition(GraphicsDevice, Color.Black));
+            
+          
         }
         public void LoadScreen2()
         {
             _screenManager.LoadScreen(new screen2(this), new FadeTransition(GraphicsDevice, Color.Black));
+
         }
         public void LoadScreen3()
         {
             _screenManager.LoadScreen(new screen3(this), new FadeTransition(GraphicsDevice, Color.Black));
+
         }
         public void LoadScreen4()
         {
             _screenManager.LoadScreen(new screen4(this), new FadeTransition(GraphicsDevice, Color.Black));
+
         }
         public void LoadScreen5()
         {
-            _screenManager.LoadScreen(new screen5(this), new FadeTransition(GraphicsDevice, Color.Black));
+            _screenManager.LoadScreen(new screen4(this), new FadeTransition(GraphicsDevice, Color.Black));
+
         }
-        public void LoadScreen6()
-        {
-            _screenManager.LoadScreen(new screen6(this), new FadeTransition(GraphicsDevice, Color.Black));
-        }         
+
+
+
+
     }
 }

@@ -22,7 +22,7 @@ namespace Elemental
         public static SpriteFont font;
         private static float _chrono = 0;
         public static Vector2 _positionChrono;
-
+        
         public static void Initialize()
         {
             _positionChrono = new Vector2(16, 16);

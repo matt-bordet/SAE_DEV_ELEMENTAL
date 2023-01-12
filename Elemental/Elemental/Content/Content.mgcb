@@ -35,6 +35,11 @@
 /processor:TiledMapTilesetProcessor
 /build:16-bit-spike-Sheet.tsx
 
+#begin couloire.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:couloire.tmx
+
 #begin Font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -92,6 +97,12 @@
 /importer:TiledMapTilesetImporter
 /processor:TiledMapTilesetProcessor
 /build:inca_front.tsx
+
+#begin musique_dungeons.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:musique_dungeons.mp3
 
 #begin Player_IJ_Animations.sf
 /importer:SpriteFactoryContentImporter
